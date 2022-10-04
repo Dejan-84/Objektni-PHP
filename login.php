@@ -69,7 +69,7 @@ $csrf = hash_hmac('sha256', 'this is some string: index.php', $_SESSION['key']);
     </div>   
    
         <?php
-            /*
+            /* 
             if (isset($_SESSION) && isset($_SESSION['success'])) {
 
                 $html = '<div class="alert alert-success">';
@@ -91,6 +91,7 @@ $csrf = hash_hmac('sha256', 'this is some string: index.php', $_SESSION['key']);
             }
             */
         ?>
+        
     
 </body> 
 </html>
