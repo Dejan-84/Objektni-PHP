@@ -3,19 +3,12 @@ session_start();
 
 //print_r($_SESSION);
 
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
+/*if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
 
     header('Location: index.php');
-}
+}*/
 
-//create a key for hash_hmac function
-if (empty($_SESSION['key'])) {
 
-    $_SESSION['key'] = bin2hex(random_bytes(32));
-}
-    
-//create CSRF token
-$csrf = hash_hmac('sha256', 'this is some string: index.php', $_SESSION['key']);
 
 ?>
 <!DOCTYPE html>
@@ -27,6 +20,7 @@ $csrf = hash_hmac('sha256', 'this is some string: index.php', $_SESSION['key']);
     <title>Log In</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <style>
         .row {
@@ -46,23 +40,24 @@ $csrf = hash_hmac('sha256', 'this is some string: index.php', $_SESSION['key']);
 
         <div class="col-md-4 offset-md-4">
 
-            <form method="post" action="<?php echo htmlspecialchars('login_korisnika.php');?>">
+            <form id="submit-form" method="post" action="javascript:void(0);" novalidate="novalidate">
 
 
                 <div class="form-group">
                     <label for="email">Email adresa:</label>
-                    <input type="email" name="email" class="form-control" placeholder="Unesite email">
+                    <input type="email" name="email" class="form-input form-control" placeholder="Unesite email">
                 </div>
 
                 <div class="form-group">
                     <label for="lozinku">Lozinka:</label>
-                    <input type="password" name="lozinku" class="form-control" placeholder="Unesite lozinku">
+                    <input type="password" name="lozinku" class="form-input form-control" placeholder="Unesite lozinku">
                 </div>
 
-                <input type="hidden" name="csrf" value="<?php echo $csrf ?>">
-            
-                <button type="submit" name="submit" class="btn btn-primary">Potvrdi</button>
-
+                <div style="padding:5px;" class="text-danger">
+				</div>
+                
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                
             </form> 
 
         </div>
@@ -92,6 +87,45 @@ $csrf = hash_hmac('sha256', 'this is some string: index.php', $_SESSION['key']);
             */
         ?>
         
-    
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+        
+        $(document).on('submit', '#submit-form', function(event) {
+            event.preventDefault();
+
+           
+
+            var form = $(this).serialize();
+            //alert(form);
+            $.ajax({
+
+                url: 'requests.php',
+                method: 'post',
+                dataType: 'json',
+                data: {form},
+                
+                success: function(response) {
+
+                    console.log(response);
+                    
+                    if(response.status) {
+
+                        window.location.href = response.redirect_url;
+                    }
+                    else{
+
+                        $('.text-danger').html(response.message);
+                    }
+                }
+
+            });
+
+
+            
+        });
+    });
+
+    </script>   
 </body> 
 </html>
