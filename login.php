@@ -1,14 +1,6 @@
 <?php
 session_start();
 
-//print_r($_SESSION);
-
-/*if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']) {
-
-    header('Location: index.php');
-}*/
-
-
 
 ?>
 <!DOCTYPE html>
@@ -44,66 +36,44 @@ session_start();
 
 
                 <div class="form-group">
-                    <label for="email">Email adresa:</label>
-                    <input type="email" name="email" class="form-input form-control" placeholder="Unesite email">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" class="form-input form-control" placeholder="Enter email">
                 </div>
 
                 <div class="form-group">
-                    <label for="lozinku">Lozinka:</label>
-                    <input type="password" name="lozinku" class="form-input form-control" placeholder="Unesite lozinku">
+                    <label for="lozinku">Password:</label>
+                    <input type="password" name="password" id="password" class="form-input form-control" placeholder="Enter password">
                 </div>
 
                 <div style="padding:5px;" class="text-danger">
 				</div>
                 
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+          
                 
             </form> 
 
         </div>
     </div>   
-   
-        <?php
-            /* 
-            if (isset($_SESSION) && isset($_SESSION['success'])) {
 
-                $html = '<div class="alert alert-success">';
-
-                $ime = '';
-                $prezime = '';
-
-                if (isset($_SESSION['ime'])) {
-                    $ime = $_SESSION['ime'];
-                }
-
-                (isset($_SESSION['prezime'])) ? $prezime = $_SESSION['prezime'] : '';
-
-                $html .= 'Uspesno ste se registrovali: ' .$ime .' '. $prezime; 
-
-                $html .= '</div>';
-                
-                echo $html;
-            }
-            */
-        ?>
-        
     <script type="text/javascript">
 
     $(document).ready(function() {
         
-        $(document).on('submit', '#submit-form', function(event) {
+        $('#submit-form').on('submit', function(event) {
             event.preventDefault();
 
-           
-
-            var form = $(this).serialize();
-            //alert(form);
+            var email = $('#email').val();
+            var password = $('#password').val();
+            var request_name ='login';
+            //alert(email);
+            
             $.ajax({
 
                 url: 'requests.php',
                 method: 'post',
                 dataType: 'json',
-                data: {form},
+                data: {email,password,request_name},
                 
                 success: function(response) {
 
