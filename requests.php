@@ -4,7 +4,7 @@ session_start();
 //ini_set('display_errors',0);
 include_once('config/app.php');
 include_once('Classes/Database.php');
-include_once('Classes/User.php');
+include_once('Classes/user.php');
 
 if(isset($_POST['request_name']) && $_POST['request_name'] === 'login') {
 	
