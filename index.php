@@ -30,7 +30,7 @@ session_start();
 <body>
     <div class="row">
 
-        <div class="col-md-4 offset-md-4">
+        <div class="col-md-4 col-xs-6 offset-md-4">
 
             <form id="submit-form" method="post" action="javascript:void(0);" novalidate="novalidate">
 
