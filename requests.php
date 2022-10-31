@@ -3,8 +3,8 @@ session_start();
 
 //ini_set('display_errors',0);
 include_once('config/app.php');
-include_once('classes/Database.php');
-include_once('classes/User.php');
+include_once('Classes/Database.php');
+include_once('Classes/User.php');
 
 if(isset($_POST['request_name']) && $_POST['request_name'] === 'login') {
 	
