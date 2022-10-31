@@ -1,7 +1,7 @@
 <?php
 //session_start();
 //session_destroy();
-//include_once('./config/app.php');
+
 
  
 class User{
