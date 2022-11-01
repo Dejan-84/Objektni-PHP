@@ -22,11 +22,17 @@ class User{
         if(empty($email)) {
             $message .= 'You did not enter email.<br>';
             $status = false;
-        }
-        if (empty($password)) {
-            $message .='You did not enter password.';
+
+           
+        } elseif(!filter_var($email,FILTER_VALIDATE_EMAIL)){
+            $message .='Email address is not valid.<br>';
             $status = false;
         }
+        if (empty($password)) {
+            $message .='You did not enter password.<br>';
+            $status = false;
+        }
+       
 
         $response['message'] = $message;
         $response['status'] = $status;
