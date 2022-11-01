@@ -28,6 +28,7 @@ class User{
             $message .='Email address is not valid.<br>';
             $status = false;
         }
+        
         if (empty($password)) {
             $message .='You did not enter password.<br>';
             $status = false;
