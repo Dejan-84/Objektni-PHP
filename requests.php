@@ -34,8 +34,7 @@ if(isset($_POST['request_name']) && $_POST['request_name'] === 'login') {
 		}
 		else{
 			$response['status'] = $login_status['status'];
-			$url = $login_status['redirect_url'];
-			$response['redirect_url'] = $url;
+			$response['redirect_url'] =  $login_status['redirect_url'];
 			echo json_encode($response);
 		}	
 			

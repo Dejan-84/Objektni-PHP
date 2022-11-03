@@ -61,43 +61,31 @@ class User{
             //MYSQLI ERROR FOR TESTING ONLY-REMOVE LATER
             $status = 0;
             $message .=  'Error query.';
-    
-            $response['message'] = $message;
         }
         
 
         if($query->num_rows > 0){
 
             $row = $query->fetch_assoc();
-            
-            
-            $hash = password_hash($row['password'],PASSWORD_DEFAULT);
-          
-            if (!password_verify($password,$hash)) {
+        
+            if (!password_verify($password, $row['password'])) {
                 $status = 0;
                 $message .= 'Wrong email or password.';
-                $response['message'] = $message;
             }
             else {
                 $status = 1;
                 $_SESSION['email'] = $row['email'];
-                $_SESSION['password'] = $row['password'];
                 $_SESSION['logged_in'] =  true;
                
                 $response['redirect_url'] ='wellcome.php';
-               
-            
             }
-            
-            
         }
         else{
             $status = 0;
             $message .= 'Wrong email or password.';
-    
-            $response['message'] = $message;
         }
-        //$response['message'] = $message;
+        
+        $response['message'] = $message;
         $response['status'] = $status;
 
         return $response;
